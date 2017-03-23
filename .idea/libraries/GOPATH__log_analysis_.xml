@@ -1,0 +1,91 @@
+<component name="libraryTable">
+  <library name="GOPATH &lt;log-analysis&gt;">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../net-base/src/qiniu.com" />
+      <root url="file://$PROJECT_DIR$/../net-base/src/github.com" />
+      <root url="file://$PROJECT_DIR$/../net-base/src/golang.org" />
+      <root url="file://$PROJECT_DIR$/../src/testProject" />
+      <root url="file://$PROJECT_DIR$/../dora-cloud/vendor/src/qiniu.com" />
+      <root url="file://$PROJECT_DIR$/../net-artisan/src/github.com" />
+      <root url="file://$PROJECT_DIR$/../src/sourcegraph.com" />
+      <root url="file://$PROJECT_DIR$/../src/TCM-platform" />
+      <root url="file://$PROJECT_DIR$/../net-artisan/src/qiniu.com" />
+      <root url="file://$PROJECT_DIR$/../src/AIO_examples" />
+      <root url="file://$PROJECT_DIR$/../dora-cloud/src/qiniu.com" />
+      <root url="file://$PROJECT_DIR$/../base/qiniu/src/qiniu.com" />
+      <root url="file://$PROJECT_DIR$/../base/docs/src/qiniu.com" />
+      <root url="file://$PROJECT_DIR$/../dora-cloud/src/github.com" />
+      <root url="file://$PROJECT_DIR$/../dora-cloud/src/vendor" />
+      <root url="file://$PROJECT_DIR$/../base/cgo/src/github.com" />
+      <root url="file://$PROJECT_DIR$/../base/cgo/src/qbox.us" />
+      <root url="file://$PROJECT_DIR$/../base/qiniu/src/github.com" />
+      <root url="file://$PROJECT_DIR$/../base/qiniu/src/qiniupkg.com" />
+      <root url="file://$PROJECT_DIR$/../base/biz/src/ustack.com" />
+      <root url="file://$PROJECT_DIR$/../base/biz/src/qbox.us" />
+      <root url="file://$PROJECT_DIR$/../base/portal/src/code.google.com" />
+      <root url="file://$PROJECT_DIR$/../base/portal/src/github.com" />
+      <root url="file://$PROJECT_DIR$/../net-artisan/QiniuANS/src/go/src/github.com" />
+      <root url="file://$PROJECT_DIR$/../base/portal/src/qbox.us" />
+      <root url="file://$PROJECT_DIR$/../net-artisan/QiniuANS/src/go/src/qiniu.com" />
+      <root url="file://$PROJECT_DIR$/../base/mockacc/src/qbox.us" />
+      <root url="file://$PROJECT_DIR$/../src/gopkg.in" />
+      <root url="file://$PROJECT_DIR$/../src/zyc.test" />
+      <root url="file://$PROJECT_DIR$/../src/github.com" />
+      <root url="file://$PROJECT_DIR$/../src/golang.org" />
+      <root url="file://$PROJECT_DIR$/../base/com/src/robpike.io" />
+      <root url="file://$PROJECT_DIR$/../base/com/src/bitbucket.org" />
+      <root url="file://$PROJECT_DIR$/../base/com/src/gopkg.in" />
+      <root url="file://$PROJECT_DIR$/../base/com/src/code.google.com" />
+      <root url="file://$PROJECT_DIR$/../base/com/src/labix.org" />
+      <root url="file://$PROJECT_DIR$/../base/com/src/github.com" />
+      <root url="file://$PROJECT_DIR$/../base/com/src/golang.org" />
+      <root url="file://$PROJECT_DIR$/../base/com/src/launchpad.net" />
+      <root url="file://$PROJECT_DIR$/../base/com/src/qbox.us" />
+    </CLASSES>
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/../net-base/src/qiniu.com" />
+      <root url="file://$PROJECT_DIR$/../net-base/src/github.com" />
+      <root url="file://$PROJECT_DIR$/../net-base/src/golang.org" />
+      <root url="file://$PROJECT_DIR$/../src/testProject" />
+      <root url="file://$PROJECT_DIR$/../dora-cloud/vendor/src/qiniu.com" />
+      <root url="file://$PROJECT_DIR$/../net-artisan/src/github.com" />
+      <root url="file://$PROJECT_DIR$/../src/sourcegraph.com" />
+      <root url="file://$PROJECT_DIR$/../src/TCM-platform" />
+      <root url="file://$PROJECT_DIR$/../net-artisan/src/qiniu.com" />
+      <root url="file://$PROJECT_DIR$/../src/AIO_examples" />
+      <root url="file://$PROJECT_DIR$/../dora-cloud/src/qiniu.com" />
+      <root url="file://$PROJECT_DIR$/../base/qiniu/src/qiniu.com" />
+      <root url="file://$PROJECT_DIR$/../base/docs/src/qiniu.com" />
+      <root url="file://$PROJECT_DIR$/../dora-cloud/src/github.com" />
+      <root url="file://$PROJECT_DIR$/../dora-cloud/src/vendor" />
+      <root url="file://$PROJECT_DIR$/../base/cgo/src/github.com" />
+      <root url="file://$PROJECT_DIR$/../base/cgo/src/qbox.us" />
+      <root url="file://$PROJECT_DIR$/../base/qiniu/src/github.com" />
+      <root url="file://$PROJECT_DIR$/../base/qiniu/src/qiniupkg.com" />
+      <root url="file://$PROJECT_DIR$/../base/biz/src/ustack.com" />
+      <root url="file://$PROJECT_DIR$/../base/biz/src/qbox.us" />
+      <root url="file://$PROJECT_DIR$/../base/portal/src/code.google.com" />
+      <root url="file://$PROJECT_DIR$/../base/portal/src/github.com" />
+      <root url="file://$PROJECT_DIR$/../net-artisan/QiniuANS/src/go/src/github.com" />
+      <root url="file://$PROJECT_DIR$/../base/portal/src/qbox.us" />
+      <root url="file://$PROJECT_DIR$/../net-artisan/QiniuANS/src/go/src/qiniu.com" />
+      <root url="file://$PROJECT_DIR$/../base/mockacc/src/qbox.us" />
+      <root url="file://$PROJECT_DIR$/../src/gopkg.in" />
+      <root url="file://$PROJECT_DIR$/../src/zyc.test" />
+      <root url="file://$PROJECT_DIR$/../src/github.com" />
+      <root url="file://$PROJECT_DIR$/../src/golang.org" />
+      <root url="file://$PROJECT_DIR$/../base/com/src/robpike.io" />
+      <root url="file://$PROJECT_DIR$/../base/com/src/bitbucket.org" />
+      <root url="file://$PROJECT_DIR$/../base/com/src/gopkg.in" />
+      <root url="file://$PROJECT_DIR$/../base/com/src/code.google.com" />
+      <root url="file://$PROJECT_DIR$/../base/com/src/labix.org" />
+      <root url="file://$PROJECT_DIR$/../base/com/src/github.com" />
+      <root url="file://$PROJECT_DIR$/../base/com/src/golang.org" />
+      <root url="file://$PROJECT_DIR$/../base/com/src/launchpad.net" />
+      <root url="file://$PROJECT_DIR$/../base/com/src/qbox.us" />
+    </SOURCES>
+    <excluded>
+      <root url="file://$PROJECT_DIR$" />
+    </excluded>
+  </library>
+</component>
