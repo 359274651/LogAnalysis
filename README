@@ -14,6 +14,28 @@ logserver
 6.支持日志通过关键词查询
 7.看看能否对有些日志实现 图表统计 ，可以考虑使用highcharts 或者 html5charts
 8.搜集尽可能多的需要关注的参数，并且直观展示，方便作为排查问题的参考
+
+
+架构采用  
+telegraf：数据采集
+logparser：
+patterns = ["%{IPV4:remote_addr:tag}\\|%{NGUSER:remote_user:tag}\\|\\[%{HTTPDATE:time_local:tag}\\]\\|%{URIHOST:host:tag}\\|%{VRHT:request:tag}\\|%{INT:status:tag}\\|%{NUMBER:body_bytes_sent:tag}\\|%{NEWHREFER:http_referer}\\|%{DATA:http_user_agent:tag}\\|%{NGUSER:http_x_forwarded_for:tag}\\|%{NUMBER:request_time:tag}\\|%{NUMBER:upstream_response_time:tag}\\|%{NUMBER:upstream_connect_time:tag}\\|%{NUMBER:upstream_header_time:tag}\\|%{DATA:upstream_http_via:tag}\\|%{GREEDYDATA:upstream_addr:tag}\\|%{GREEDYDATA:upstream_http_x_e_reqid}\\|%{GREEDYDATA:upstream_http_x_m_reqid}"]
+#     ## Name of the outputted measurement name.
+     measurement = "nginx_access_log"
+#     ## Full path(s) to custom pattern files.
+#     custom_pattern_files = []
+#     ## Custom patterns can also be defined here. Put one pattern per line.
+     custom_patterns = '''
+      VRHT %{WORD} %{URIPATHPARAM} HTTP/%{NUMBER:float}
+      NEWHREFER (%{URI}|-)?
+     '''
+
+
+influxdb:数据收集
+influxdb 支持 正则查询 正则表达式是使用golang 的模式
+
+
+以及自己开发的这个东西用来作为日志分析 
              。
              。
              。
