@@ -1,6 +1,0 @@
-templates
-
-这里主要是存放html 文件的地方 ，方便html 管理和使用
-
-指定目录路径的方式是在main方法里面 ，配置路径，默认是 ./templates   .html
-

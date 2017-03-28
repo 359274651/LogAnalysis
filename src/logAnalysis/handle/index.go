@@ -1,9 +1,15 @@
 package handle
 
-import "github.com/kataras/iris"
+//import "github.com/kataras/iris"
+import (
+	"fmt"
+	"gopkg.in/kataras/iris.v6"
+)
 
 func Hi(ctx *iris.Context) {
-	ctx.Render("hi.html", map[string]interface{}{"Name": "iris"}, iris.RenderOptions{"gzip": true})
+	ctx.Log(iris.DevMode, "%s%s", ctx.Path(), ctx.Method())
+
+	ctx.Render("index.html", map[string]interface{}{"Name": "iris"}, iris.RenderOptions{"gzip": true})
 }
 
 //func Index(ctx *iris.Context) {
@@ -12,6 +18,43 @@ func Hi(ctx *iris.Context) {
 //}
 
 func Index(ctx *iris.Context) {
-	ctx.Render("index.html", nil, iris.RenderOptions{"gzip": true})
+	err := ctx.Render("index.html", nil, nil)
+	//ctx.WriteString("我尽力；爱了")
+	if err != nil {
+		fmt.Println(err)
+	}
 	//ctx.render
+}
+
+func Pages(ctx *iris.Context) {
+	err := ctx.Render("index.html", nil)
+	//ctx.WriteString("我尽力；爱了")
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	//ctx.render
+}
+func Flot(ctx *iris.Context) {
+	err := ctx.Render("flot.html", nil, nil)
+	//ctx.WriteString("我尽力；爱了")
+	if err != nil {
+		fmt.Println(err)
+	}
+}
+
+func Morris(ctx *iris.Context) {
+	err := ctx.Render("morris.html", nil, nil)
+	//ctx.WriteString("我尽力；爱了")
+	if err != nil {
+		fmt.Println(err)
+	}
+}
+
+func Login(ctx *iris.Context) {
+	err := ctx.Render("login.html", nil, nil)
+	//ctx.WriteString("我尽力；爱了")
+	if err != nil {
+		fmt.Println(err)
+	}
 }

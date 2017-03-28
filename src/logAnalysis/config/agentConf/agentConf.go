@@ -1,19 +1,19 @@
 package agentConf
 
 import (
-	_ "github.com/go-sql-driver/mysql"
 	"github.com/BurntSushi/toml"
+	_ "github.com/go-sql-driver/mysql"
 	//"database/sql"
 	"fmt"
-	
+
 	"log"
 )
 
 type Config struct {
 	Agentname string
 	NLog      NginxLog `toml:"nginxLog"`
-	AtsLog    AtsLog `toml:"atsLog"`
-	MysqlConf Mysql `toml:"mysql"`
+	AtsLog    AtsLog   `toml:"atsLog"`
+	MysqlConf Mysql    `toml:"mysql"`
 }
 
 type NginxLog struct {
@@ -38,6 +38,12 @@ type Mysql struct {
 	Dbuser     string
 	Dbpassword string
 	Dbname     string
+}
+
+type InfluxDb struct {
+	Addr     string
+	Username string
+	Password string
 }
 
 func (thisgo *Mysql) ToString() string {

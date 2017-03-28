@@ -8,6 +8,7 @@
       <root url="file://$PROJECT_DIR$/../dora-cloud/vendor/src/qiniu.com" />
       <root url="file://$PROJECT_DIR$/../net-artisan/src/github.com" />
       <root url="file://$PROJECT_DIR$/../src/sourcegraph.com" />
+      <root url="file://$PROJECT_DIR$/../net-artisan/src/gopkg.in" />
       <root url="file://$PROJECT_DIR$/../src/TCM-platform" />
       <root url="file://$PROJECT_DIR$/../net-artisan/src/qiniu.com" />
       <root url="file://$PROJECT_DIR$/../src/AIO_examples" />
@@ -50,6 +51,7 @@
       <root url="file://$PROJECT_DIR$/../dora-cloud/vendor/src/qiniu.com" />
       <root url="file://$PROJECT_DIR$/../net-artisan/src/github.com" />
       <root url="file://$PROJECT_DIR$/../src/sourcegraph.com" />
+      <root url="file://$PROJECT_DIR$/../net-artisan/src/gopkg.in" />
       <root url="file://$PROJECT_DIR$/../src/TCM-platform" />
       <root url="file://$PROJECT_DIR$/../net-artisan/src/qiniu.com" />
       <root url="file://$PROJECT_DIR$/../src/AIO_examples" />
