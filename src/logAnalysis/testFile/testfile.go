@@ -45,6 +45,13 @@ func main() {
 	//}
 	//ReadLogfile("/Users/zhangyachuan/Documents/proxy_access.log")
 }
+//$remote_addr|$remote_user|[$time_local]|$host|$request|$status|$body_bytes_sent|$http_referer|'
+//                     '$http_user_agent|$http_x_forwarded_for|$request_time|$upstream_response_time|'
+//                     '$upstream_connect_time|$upstream_header_time|$upstream_http_via|$upstream_addr|'
+//                     '$upstream_http_x_e_reqid|$upstream_http_x_m_reqid'
+
+//103.20.32.163|-|[03/May/2017:17:33:45 +0800]|s1.cdn.xiangha.com|GET /favicon.ico HTTP/2.0|401|399|https://s1.cdn.xiangha.com/caipu/201507/0417/041728029421.jpg/MjgweDIyMA|Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36|-|0.196|0.196|0.000|0.196|http/1.1 cdn-cnc-gddg-dg-8 (ApacheTrafficServer/6.2.0 [cMsSf ])|127.0.0.1:8080|1493804025673921299:4639915|5lgAAEs4eMDYDrsU
+
 
 //
 //func ReadLogfile(logpath string) {

@@ -14,6 +14,7 @@ type Config struct {
 	AtsLog     CommonConf `toml:"atsLog"`
 	NELog      CommonConf `toml:"nginxErrorLog"`
 	AtsELog    CommonConf `toml:"atsErrorLog"`
+	Mongo      MO         `toml:"mongo"`
 }
 
 type CommonConf struct {
@@ -22,6 +23,15 @@ type CommonConf struct {
 	Password  string
 	Dbname    string
 	Tablename string
+}
+
+type MO struct {
+	Dbhost     string
+	Dbport     string
+	Dbuser     string
+	Dbpassword string
+	Dbname     string
+	Nodedb     string //用来存储节点信息的数据库包括节点名称，节点对应的日志路径
 }
 
 func (cc *CommonConf) ToString() string {

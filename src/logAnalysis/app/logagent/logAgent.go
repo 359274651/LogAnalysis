@@ -40,23 +40,8 @@ func main() {
 		log.Fatalln("agentname 为空停止运行")
 	}
 
-	go func() {
-		ali := logagent.AgentLogInfo{}
-		ali.ReadLogToMysql(agentConfig.MysqlConf.ToString(), agentConfig.Agentname, agentConfig.NLog.NginxAcessLogPath, agentConfig.NLog.Separator, agentConfig.NLog.Title)
-	}()
-
-	go func() {
-		ali := logagent.AgentLogInfo{}
-		ali.ReadLogToMysql(agentConfig.MysqlConf.ToString(), agentConfig.Agentname, agentConfig.NLog.NginxErrorLogPath, "", "")
-	}()
-	//
-	//go func() {
-	//	logagent.ReadLogToMysql(agentConfig.MysqlConf.ToString(), agentConfig.Agentname, agentConfig.AtsLog.AtsAcessLogPath, agentConfig.AtsLog.Separator, agentConfig.AtsLog.Title)
-	//}()
-	//
-	//go func() {
-	//	logagent.ReadLogToMysql(agentConfig.MysqlConf.ToString(), agentConfig.Agentname, agentConfig.AtsLog.AtsErrorLogPath, "", "")
-	//}()
+	ali := logagent.AgentLogInfo{}
+	ali.ReadLogToMongo(agentConfig)
 
 	//因为没有赋值所以按照chan的逻辑，空chan 取数据会造成阻塞
 	<-block

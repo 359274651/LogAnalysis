@@ -14,6 +14,7 @@ type Config struct {
 	NLog      NginxLog `toml:"nginxLog"`
 	AtsLog    AtsLog   `toml:"atsLog"`
 	MysqlConf Mysql    `toml:"mysql"`
+	MongoC    MO       `toml:"mongo"`
 }
 
 type NginxLog struct {
@@ -22,6 +23,8 @@ type NginxLog struct {
 	Filterconditions  string
 	NginxAcessLogPath string
 	NginxErrorLogPath string
+	HttpsNLlog        string
+	HttpsNLErrorlog   string
 }
 
 type AtsLog struct {
@@ -38,6 +41,15 @@ type Mysql struct {
 	Dbuser     string
 	Dbpassword string
 	Dbname     string
+}
+
+type MO struct {
+	Dbhost     string
+	Dbport     string
+	Dbuser     string
+	Dbpassword string
+	Dbname     string
+	Nodedb     string //用来存储节点信息的数据库包括节点名称，节点对应的日志路径
 }
 
 type InfluxDb struct {

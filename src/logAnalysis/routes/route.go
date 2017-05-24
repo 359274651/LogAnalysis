@@ -22,8 +22,8 @@ func InitRoute(app *iris.Framework) {
 	app.Get("/morris", handle.Morris)
 	app.Get("/login", handle.Login)
 
-	app.Get("/countstatusarea/:reqtime/:startime/:durations", logserver.CountStatusArea)
+	app.Get("/countstatusarea/:reqtime", logserver.CountStatusArea)
 	app.Get("/ListMaxBodySent", logserver.ListMaxBodySent)
-	app.Get("/ListMaxRespTime", logserver.ListMaxRespTime)
+	app.Get("/ListMaxRespTime/:starttime/:resptime", logserver.ListMaxRespTime)
 	app.Get("/ListMaxRespTimeBodySent", logserver.ListMaxRespTimeBodySent)
 }

@@ -17,6 +17,9 @@ func NewClient(addr string, username string, password string, dbname string) *In
 	c, err := client.NewHTTPClient(client.HTTPConfig{Addr: addr, Username: username, Password: password})
 	idb := InFluxDBTool{c, dbname}
 	CommonLibrary.CheckError(err)
+	_, res, err := c.Ping(10000)
+
+	fmt.Println(res+"         ", err)
 	return &idb
 }
 
@@ -59,6 +62,7 @@ func (i *InFluxDBTool) Query(cmd string) (res []client.Result, err error) {
 //  查询数据
 func (i *InFluxDBTool) QueryData(cmd string, args ...interface{}) ([]client.Result, error) {
 	q := fmt.Sprintf(cmd, args...)
+	fmt.Println("influxsql: " + q)
 	return i.Query(q)
 }
 
