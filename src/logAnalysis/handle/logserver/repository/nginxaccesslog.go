@@ -16,7 +16,6 @@ import (
 	"logAnalysis/database/mongo"
 	"logAnalysis/handle/logserver"
 	"logAnalysis/runglobal"
-	"time"
 )
 
 //公共的node集合名称
@@ -39,9 +38,6 @@ func InitDocumentKey(qk *logserver.QueryKey) *mgo.Query {
 	defer runglobal.PublicLock.Unlock()
 	runglobal.PublicLock.Lock()
 	mgdb := GetmongoDb(mongodb)
-	data, _ := json.Marshal(mongodb)
-	fmt.Println("-----------", string(data))
-	//time.Sleep(15 * time.Second)
 	mgdb.SwitchDB(string(qk.DB))
 	return mgdb.FindResult(qk.Collection, bson.M{})
 }
@@ -77,6 +73,7 @@ func GetmongoDb(mongodb agentConf.MO) *mongo.MgoOp {
 		return mongo.CreateMO(mongodb)
 	}
 }
+
 func ConvertMoEntity() agentConf.MO {
 	temp := agentConf.MO{}
 	temp.Dbhost = runglobal.GlobalConf.Mongo.Dbhost

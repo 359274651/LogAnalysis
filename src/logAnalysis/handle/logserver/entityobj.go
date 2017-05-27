@@ -1,8 +1,14 @@
 package logserver
 
+import "fmt"
+
 type QueryKey struct {
 	DB         `json:"db"` //查询的数据库
 	Collection string      `json:"collection"` //mongo Collection  ,一般就是日志文件的名字,可以通过path.Split(path) (dir,name string) 获取
+}
+
+func (qk *QueryKey) String() string {
+	return fmt.Sprintf("%s %s", qk.DB, qk.Collection)
 }
 
 //存储查询条件用的结构体

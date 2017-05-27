@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	//"log"
+	"gopkg.in/mgo.v2/bson"
 	. "logAnalysis/CommonLibrary"
 	"logAnalysis/handle/logserver"
 	"logAnalysis/handle/logserver/repository"
@@ -38,14 +39,16 @@ func InitMenu() (*logserver.MenuData, error) {
 	return &lmd, err
 }
 
-func InitDocumentKey(qk *logserver.QueryKey) {
-	var nodec []logserver.NodeCollection
+func InitDocumentKey(qk *logserver.QueryKey) []string {
+	var nodec bson.M
 	result := Repository.InitDocumentKey(qk)
-	result.
-	err := result.All(&nodec)
+	err := result.One(&nodec)
 	CheckPrintlnError(err)
-	var lmd logserver.MenuData = logserver.MenuData{}
-
+	title := []string{}
+	for key, _ := range nodec {
+		title = append(title, key)
+	}
+	return title
 	//return &lmd, err
 }
 

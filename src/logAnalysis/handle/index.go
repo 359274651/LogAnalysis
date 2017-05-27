@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"gopkg.in/kataras/iris.v6"
 	"logAnalysis/CommonLibrary"
+	"logAnalysis/handle/logserver"
 	"logAnalysis/handle/logserver/server"
 	"net/http"
 )
@@ -24,9 +25,12 @@ func InitMenu(ctx *iris.Context) {
 
 func InitDocumentKey(ctx *iris.Context) {
 	ctx.Log(iris.DevMode, "%s%s", ctx.Path(), ctx.Method())
-	res, err := server.InitDocumentKey(QueryKey)
-	CommonLibrary.CheckHtmlError(err, ctx)
+	ql := logserver.QueryKey{}
+	ctx.ReadJSON(&ql)
+	fmt.Println("json", ql.String())
+	res := server.InitDocumentKey(&ql)
 	ctx.JSON(http.StatusOK, res)
+
 }
 
 func Index(ctx *iris.Context) {

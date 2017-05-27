@@ -51,7 +51,6 @@ func (m *MgoOp) FindOneResult(collectionname string, query interface{}, result i
 //查找一群结果，并返回
 func (m *MgoOp) FindResult(collectionname string, query interface{}) *mgo.Query {
 	colname := m.mgodb.C(collectionname)
-
 	return colname.Find(query)
 }
 
