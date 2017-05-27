@@ -1,38 +1,64 @@
 package Repository
 
 import (
-	"log"
+	//"log"
 
 	"github.com/influxdata/influxdb/client/v2"
 
-	"logAnalysis/CommonLibrary"
-	"logAnalysis/business/logagent"
+	"gopkg.in/mgo.v2"
+	"gopkg.in/mgo.v2/bson"
+	//"logAnalysis/CommonLibrary"
+	//"logAnalysis/business/logagent"
+	"encoding/json"
+	"fmt"
+	"github.com/qiniu/log.v1"
 	"logAnalysis/config/agentConf"
 	"logAnalysis/database/mongo"
 	"logAnalysis/runglobal"
+	"time"
 )
+
+//公共的node集合名称
+var nodecoll = "nodecollection"
+
+func InitMenu() *mgo.Query {
+	mongodb := ConvertMoEntity()
+	defer runglobal.PublicLock.Unlock()
+	runglobal.PublicLock.Lock()
+	mgdb := GetmongoDb(mongodb)
+	data, _ := json.Marshal(mongodb)
+	fmt.Println("-----------", string(data))
+	//time.Sleep(15 * time.Second)
+	mgdb.SwitchDB(mongodb.Nodedb)
+	return mgdb.FindResult(nodecoll, bson.M{})
+}
 
 //统计状态码  时间 now－1d  1m durations=refresh time
 func CountStatusArea(reqtime string) ([]client.Result, error) {
-	var nodersl []logagent.NodeCollection
-	mongodb := ConvertMoEntity()
-	mgdb := GetmongoDb(mongodb)
-
-	//defer DeferCloseconn(nginxlog)
-	mgdb.SwitchDB(mongodb.Nodedb)
-	resl := mgdb.FindResult("nodecollection", nil)
-	err := resl.All(nodersl)
-	CommonLibrary.CheckError(err)
-	for _, nodeval := range nodersl {
-		nodeval.Nodename
-	}
+	//var nodersl []logagent.NodeCollection
+	//mongodb := ConvertMoEntity()
+	//defer runglobal.PublicLock.Unlock()
+	//runglobal.PublicLock.Lock()
+	//mgdb := GetmongoDb(mongodb)
+	//
+	////defer DeferCloseconn(nginxlog)
+	//mgdb.SwitchDB(mongodb.Nodedb)
+	//resl := mgdb.FindResult("nodecollection", nil)
+	//err := resl.All(nodersl)
+	//CommonLibrary.CheckError(err)
+	//for _, nodeval := range nodersl {
+	//	nodeval.Nodename
+	//}
 	//return nginxlog.QueryData("SELECT count(\"port\") FROM \"%s\" WHERE  time > now() - %s GROUP BY \"status\" fill(0)", nginxlogcon.Tablename, reqtime)
 	//return nginxlog.QueryData("select cs as data,status as label from dg5telegraf.rp6h.countstatusarea where time >= now() - 10m")
+	return nil, nil
 }
 func GetmongoDb(mongodb agentConf.MO) *mongo.MgoOp {
-	if runglobal.GlobalMongdb == nil {
+	if runglobal.GlobalMongdb != nil {
+		log.Println("nill")
 		return runglobal.GlobalMongdb
 	} else {
+		log.Println("else")
 		return mongo.CreateMO(mongodb)
 	}
 }

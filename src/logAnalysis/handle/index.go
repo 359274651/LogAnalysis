@@ -4,6 +4,9 @@ package handle
 import (
 	"fmt"
 	"gopkg.in/kataras/iris.v6"
+	"logAnalysis/CommonLibrary"
+	"logAnalysis/handle/logserver/server"
+	"net/http"
 )
 
 func Hi(ctx *iris.Context) {
@@ -12,10 +15,12 @@ func Hi(ctx *iris.Context) {
 	ctx.Render("index.html", map[string]interface{}{"Name": "iris"}, iris.RenderOptions{"gzip": true})
 }
 
-//func Index(ctx *iris.Context) {
-//	ctx.Render("Dashboard.html", nil, iris.RenderOptions{"gzip": true})
-//	//ctx.render
-//}
+func InitMenu(ctx *iris.Context) {
+	ctx.Log(iris.DevMode, "%s%s", ctx.Path(), ctx.Method())
+	res, err := server.InitMenu()
+	CommonLibrary.CheckHtmlError(err, ctx)
+	ctx.JSON(http.StatusOK, res)
+}
 
 func Index(ctx *iris.Context) {
 	err := ctx.Render("index.html", nil, nil)

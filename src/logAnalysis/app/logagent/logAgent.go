@@ -6,9 +6,11 @@ import (
 	"log"
 	"logAnalysis/business/logagent"
 	"logAnalysis/config/agentConf"
+	"logAnalysis/runglobal"
 	"os"
 	"os/exec"
 	"path/filepath"
+	"strings"
 )
 
 var block chan int
@@ -40,6 +42,12 @@ func main() {
 		log.Fatalln("agentname 为空停止运行")
 	}
 
+	//处理正则表达式的容器初始化
+	value := strings.Split(agentConfig.REG.Expression, "|#|")
+	for _, val := range value {
+		regtav := strings.Split(val, "|:|")
+		runglobal.PulicRegex[regtav[0]] = regtav[1]
+	}
 	ali := logagent.AgentLogInfo{}
 	ali.ReadLogToMongo(agentConfig)
 

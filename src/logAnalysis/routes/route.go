@@ -4,7 +4,7 @@ import (
 	//"github.com/kataras/iris"
 	"gopkg.in/kataras/iris.v6"
 	"logAnalysis/handle"
-	"logAnalysis/handle/logserver"
+	//"logAnalysis/handle/logserver"
 )
 
 //func init() {
@@ -21,9 +21,9 @@ func InitRoute(app *iris.Framework) {
 	app.Get("/flot", handle.Flot)
 	app.Get("/morris", handle.Morris)
 	app.Get("/login", handle.Login)
-
-	app.Get("/countstatusarea/:reqtime", logserver.CountStatusArea)
-	app.Get("/ListMaxBodySent", logserver.ListMaxBodySent)
-	app.Get("/ListMaxRespTime/:starttime/:resptime", logserver.ListMaxRespTime)
-	app.Get("/ListMaxRespTimeBodySent", logserver.ListMaxRespTimeBodySent)
+	app.Get("/init/menu", handle.InitMenu)
+	//app.Get("/countstatusarea/:reqtime", logserver.CountStatusArea)
+	//app.Get("/ListMaxBodySent", logserver.ListMaxBodySent)
+	//app.Get("/ListMaxRespTime/:starttime/:resptime", logserver.ListMaxRespTime)
+	//app.Get("/ListMaxRespTimeBodySent", logserver.ListMaxRespTimeBodySent)
 }

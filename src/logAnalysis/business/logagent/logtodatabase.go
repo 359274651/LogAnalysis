@@ -93,11 +93,14 @@ func FileIsExist(logPath string) bool {
 	return true
 }
 func CollectLog(title string, op *mongo.MgoOp, agentname string, logPath string, separate string) {
+	defer CatchExecption(logPath)
+
 	titles := strings.Split(title, ",")
 	op.SwitchDB(agentname)
 	logs := strings.Split(logPath, "/")
 	collectionname := logs[len(logs)-1]
 	lineindex := mgo.Index{Key: []string{"createAt"}, ExpireAfter: 72 * time.Hour}
+
 	errindex := op.CreateIndex(collectionname, lineindex)
 	CheckError(errindex)
 	//开始读取日志文件并进行插入
@@ -143,7 +146,7 @@ func CollectLog(title string, op *mongo.MgoOp, agentname string, logPath string,
 					//} else {
 					//	doc = doc + temp + ","
 					//}
-					bsonm[val] = linedatas[i]
+					bsonm[strings.Split(val, ":")[0]] = IsDataType(val, linedatas[i])
 
 				}
 				bsonm["createAt"] = bson.Now()

@@ -1,4 +1,4 @@
-package logserver
+package controll
 
 import (
 	"encoding/json"
