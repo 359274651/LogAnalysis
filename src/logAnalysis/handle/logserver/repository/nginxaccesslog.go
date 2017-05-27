@@ -14,6 +14,7 @@ import (
 	"github.com/qiniu/log.v1"
 	"logAnalysis/config/agentConf"
 	"logAnalysis/database/mongo"
+	"logAnalysis/handle/logserver"
 	"logAnalysis/runglobal"
 	"time"
 )
@@ -32,6 +33,20 @@ func InitMenu() *mgo.Query {
 	mgdb.SwitchDB(mongodb.Nodedb)
 	return mgdb.FindResult(nodecoll, bson.M{})
 }
+
+func InitDocumentKey(qk *logserver.QueryKey) *mgo.Query {
+	mongodb := ConvertMoEntity()
+	defer runglobal.PublicLock.Unlock()
+	runglobal.PublicLock.Lock()
+	mgdb := GetmongoDb(mongodb)
+	data, _ := json.Marshal(mongodb)
+	fmt.Println("-----------", string(data))
+	//time.Sleep(15 * time.Second)
+	mgdb.SwitchDB(string(qk.DB))
+	return mgdb.FindResult(qk.Collection, bson.M{})
+}
+
+//qk logserver.QueryKey
 
 //统计状态码  时间 now－1d  1m durations=refresh time
 func CountStatusArea(reqtime string) ([]client.Result, error) {

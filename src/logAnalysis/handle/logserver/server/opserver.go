@@ -38,6 +38,17 @@ func InitMenu() (*logserver.MenuData, error) {
 	return &lmd, err
 }
 
+func InitDocumentKey(qk *logserver.QueryKey) {
+	var nodec []logserver.NodeCollection
+	result := Repository.InitDocumentKey(qk)
+	result.
+	err := result.All(&nodec)
+	CheckPrintlnError(err)
+	var lmd logserver.MenuData = logserver.MenuData{}
+
+	//return &lmd, err
+}
+
 //统计状态码  时间 now－1d  1m durations=refresh time
 func CountStatusArea(reqtime string) ([]CountStatusAreaDataNew, error) {
 	var acsad []CountStatusAreaDataNew

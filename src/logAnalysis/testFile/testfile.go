@@ -13,8 +13,8 @@ import (
 	//"regexp"
 	"strconv"
 	//"strings"
+	//"path"
 	"time"
-	"path"
 )
 
 //import "fmt"
@@ -59,9 +59,11 @@ func S2I(a string) int {
 	return i
 }
 func main() {
-	//time.Time{}.String()
-	////times, err := time.Parse("2006-01-02T15:04:05.000Z", "26/May/2017:12:05:07 +0800")
-	//fmt.Println(time.Now())
+	time.Time{}.String()
+	//time.January
+	layout := "02/January/2006:15:04:05"
+	times, _ := time.ParseInLocation(layout, "26/May/2017:12:05:07 +0800", time.Local)
+	fmt.Println(times)
 	//watitime := "[26/May/2017:12:05:07 +0800]"
 	//strings.Split(watitime, "/")
 	//
@@ -71,9 +73,9 @@ func main() {
 	//fmt.Println(res)
 	//t := time.Date(S2I(res[3]), IsMonth(res[2]), S2I(res[1]), S2I(res[4]), S2I(res[5]), S2I(res[6]), 0, time.Local)
 	//fmt.Println(t.String())
- //path.Split()
-	val, _ := strconv.ParseFloat("0.537", 64)
-	fmt.Println(val)
+	//path.Split()
+	//val, _ := strconv.ParseFloat("0.537", 64)
+	//fmt.Println(val)
 	//26/May/2017:12:05:07 +0800
 	//if err != nil {
 	//	panic(err)

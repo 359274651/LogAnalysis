@@ -22,6 +22,7 @@ func InitRoute(app *iris.Framework) {
 	app.Get("/morris", handle.Morris)
 	app.Get("/login", handle.Login)
 	app.Get("/init/menu", handle.InitMenu)
+	app.Get("/init/dk", handle.InitDocumentKey)
 	//app.Get("/countstatusarea/:reqtime", logserver.CountStatusArea)
 	//app.Get("/ListMaxBodySent", logserver.ListMaxBodySent)
 	//app.Get("/ListMaxRespTime/:starttime/:resptime", logserver.ListMaxRespTime)

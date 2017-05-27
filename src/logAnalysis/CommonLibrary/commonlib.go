@@ -96,10 +96,14 @@ func IsDataType(title string, da interface{}) interface{} {
 				regname := strings.Split(title, ":")[2]
 				if val, ok := runglobal.PulicRegex[regname]; ok {
 					r := regexp.MustCompile(val)
-					res := r.FindStringSubmatch(da.(string))
+					ti := r.FindString(da.(string))
+					//res := r.FindStringSubmatch(da.(string))
+					layout := "02/January/2006:15:04:05"
+					t, err := time.ParseInLocation(layout, ti, time.Local)
+					CheckPanicError(err)
 					//log.Println("正则表达式是", val)
 					//log.Println("匹配的结果是", res)
-					t := time.Date(S2I(res[3]), IsMonth(res[2]), S2I(res[1]), S2I(res[4]), S2I(res[5]), S2I(res[6]), 0, time.Local)
+					//t := time.Date(S2I(res[3]), IsMonth(res[2]), S2I(res[1]), S2I(res[4]), S2I(res[5]), S2I(res[6]), 0, time.Local)
 					//log.Println("生成的时间是", t.String())
 					return t
 				} else {

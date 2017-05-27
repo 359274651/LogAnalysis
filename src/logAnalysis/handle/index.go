@@ -22,6 +22,13 @@ func InitMenu(ctx *iris.Context) {
 	ctx.JSON(http.StatusOK, res)
 }
 
+func InitDocumentKey(ctx *iris.Context) {
+	ctx.Log(iris.DevMode, "%s%s", ctx.Path(), ctx.Method())
+	res, err := server.InitDocumentKey(QueryKey)
+	CommonLibrary.CheckHtmlError(err, ctx)
+	ctx.JSON(http.StatusOK, res)
+}
+
 func Index(ctx *iris.Context) {
 	err := ctx.Render("index.html", nil, nil)
 	//ctx.WriteString("我尽力；爱了")
