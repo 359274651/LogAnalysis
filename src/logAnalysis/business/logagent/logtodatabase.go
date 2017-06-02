@@ -60,29 +60,29 @@ func (ali *AgentLogInfo) ReadLogToMongo(mo *agentConf.Config) {
 	CheckError(err)
 	log.Println("chagenodeinfo: ", cinfo.Removed, " ", cinfo.Updated, " ", cinfo.UpsertedId)
 
-	go readLogToMongo(mo.Agentname, mo.NLog.NginxAcessLogPath, mg, mo.NLog.Separator, mo.NLog.Title)
-	go readLogToMongo(mo.Agentname, mo.NLog.NginxErrorLogPath, mg, "", "")
-	go readLogToMongo(mo.Agentname, mo.AtsLog.AtsAcessLogPath, mg, mo.AtsLog.Separator, mo.AtsLog.Title)
-	go readLogToMongo(mo.Agentname, mo.AtsLog.AtsErrorLogPath, mg, "", "")
-	go readLogToMongo(mo.Agentname, mo.NLog.HttpsNLlog, mg, mo.NLog.Separator, mo.NLog.Title)
-	go readLogToMongo(mo.Agentname, mo.NLog.HttpsNLErrorlog, mg, "", "")
+	go readLogToMongo(mo.NLog.Index, mo.Expirehour, mo.Agentname, mo.NLog.NginxAcessLogPath, mg, mo.NLog.Separator, mo.NLog.Title)
+	go readLogToMongo(nil, mo.Expirehour, mo.Agentname, mo.NLog.NginxErrorLogPath, mg, "", "")
+	go readLogToMongo(mo.AtsLog.Index, mo.Expirehour, mo.Agentname, mo.AtsLog.AtsAcessLogPath, mg, mo.AtsLog.Separator, mo.AtsLog.Title)
+	go readLogToMongo(nil, mo.Expirehour, mo.Agentname, mo.AtsLog.AtsErrorLogPath, mg, "", "")
+	go readLogToMongo(mo.NLog.Index, mo.Expirehour, mo.Agentname, mo.NLog.HttpsNLlog, mg, mo.NLog.Separator, mo.NLog.Title)
+	go readLogToMongo(nil, mo.Expirehour, mo.Agentname, mo.NLog.HttpsNLErrorlog, mg, "", "")
 }
 
-func readLogToMongo(agentname string, logPath string, op *mongo.MgoOp, separate string, title string) {
+func readLogToMongo(indexs []string, expirehour int64, agentname string, logPath string, op *mongo.MgoOp, separate string, title string) {
 	if logPath == "" {
 		return
 	}
-	CollectLog(title, op, agentname, logPath, separate)
+	CollectLog(indexs, expirehour, title, op, agentname, logPath, separate)
 
 	fmt.Println("日志停止监控了")
 	for {
 		if FileIsExist(logPath) {
 			log.Println(" 文件存在，开始读取")
-			CollectLog(title, op, agentname, logPath, separate)
+			CollectLog(indexs, expirehour, title, op, agentname, logPath, separate)
 		}
 		//file, _ := os.OpenFile()
 		//file.Close()
-		time.Sleep(2 * time.Second)
+		time.Sleep(1 * time.Second)
 		log.Println("暂停2秒 ， 文件不存在")
 	}
 }
@@ -92,19 +92,39 @@ func FileIsExist(logPath string) bool {
 	}
 	return true
 }
-func CollectLog(title string, op *mongo.MgoOp, agentname string, logPath string, separate string) {
+func CollectLog(indexs []string, expirehour int64, title string, op *mongo.MgoOp, agentname string, logPath string, separate string) {
 	defer CatchExecption(logPath)
 
 	titles := strings.Split(title, ",")
 	op.SwitchDB(agentname)
 	logs := strings.Split(logPath, "/")
 	collectionname := logs[len(logs)-1]
-	lineindex := mgo.Index{Key: []string{"createAt"}, ExpireAfter: 72 * time.Hour}
 
-	errindex := op.CreateIndex(collectionname, lineindex)
-	CheckError(errindex)
+	//对各个字段新建索引，如果没有标题则创建默认索引doc  createAt
+	if indexs == nil {
+		lineindex := mgo.Index{Key: []string{"createAt"}, ExpireAfter: time.Duration(expirehour) * time.Hour}
+		errindex := op.CreateIndex(collectionname, lineindex)
+
+		CheckError(errindex)
+		//lineindex = mgo.Index{Key: []string{"doc"}}
+		//errindex = op.CreateIndex(collectionname, lineindex)
+		//CheckError(errindex)
+	} else {
+		lineindex := mgo.Index{Key: []string{"createAt"}, ExpireAfter: time.Duration(expirehour) * time.Hour}
+		errindex := op.CreateIndex(collectionname, lineindex)
+		CheckError(errindex)
+		//lineindex := mgo.Index{Key: []string{"createAt"}, ExpireAfter: time.Duration(expirehour) * time.Hour}
+		for _, tl := range indexs {
+			lineindex = mgo.Index{Key: []string{tl}}
+			errindex = op.CreateIndex(collectionname, lineindex)
+			CheckError(errindex)
+		}
+
+	}
+
 	//开始读取日志文件并进行插入
-	t, err := tail.TailFile(logPath, tail.Config{Poll: true, Follow: true})
+
+	t, err := tail.TailFile(logPath, tail.Config{Poll: false, Follow: true})
 	CheckError(err)
 	//针对读取到的数据进行插入到数据库，采用持续监听读取的方式
 	for line := range t.Lines {

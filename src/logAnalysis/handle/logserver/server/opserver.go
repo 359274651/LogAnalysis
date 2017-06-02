@@ -1,7 +1,6 @@
 package server
 
 import (
-	"encoding/json"
 	"fmt"
 	//"log"
 	"gopkg.in/mgo.v2/bson"
@@ -53,29 +52,18 @@ func InitDocumentKey(qk *logserver.QueryKey) []string {
 }
 
 //统计状态码  时间 now－1d  1m durations=refresh time
-func CountStatusArea(reqtime string) ([]CountStatusAreaDataNew, error) {
+func CountStatusArea(conditon *logserver.QueryData) ([]CountStatusAreaDataNew, error) {
 	var acsad []CountStatusAreaDataNew
-	var csad CountStatusAreaData = make(CountStatusAreaData)
-	clresult, err := Repository.CountStatusArea(reqtime)
-	if ok := CheckErrorPrintln("opserver.go", "CountStatusArea", err); ok {
+	clresult, err := Repository.CountStatusArea(conditon)
+	if err != nil {
 		return nil, err
 	}
-	res, _ := json.Marshal(clresult)
-	fmt.Println(string(res))
-	for _, val := range clresult {
-		for _, row := range val.Series {
-			for _, vals := range row.Values {
-				//f := row.Values[0][1].(json.Number)
-				//rowval, _ := f.Int64()
-				f := vals[1].(json.Number)
-				rowval, _ := f.Int64()
-				csad[vals[2].(string)] = int(rowval)
-			}
+	bs := []bson.M{}
+	clresult.Iter().All(&bs)
+	fmt.Println(bs)
 
-		}
-	}
-	for key, val := range csad {
-		data := CountStatusAreaDataNew{key, val}
+	for _, val := range bs {
+		data := CountStatusAreaDataNew{val["_id"].(string), val["sum_status"].(int)}
 		acsad = append(acsad, data)
 	}
 	return acsad, nil

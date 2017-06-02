@@ -32,7 +32,21 @@ func (m *MgoOp) InsertResult(collectionname string, doc ...interface{}) error {
 
 //查找一群结果，并返回
 func (m *MgoOp) CreateIndex(collectionname string, index mgo.Index) error {
+	var match = false
 	colname := m.mgodb.C(collectionname)
+	i, err := colname.Indexes()
+	if err != nil {
+		return err
+	} else {
+		for _, val := range i {
+			//如果已经存在索引，则不新建，直接返回
+			if stringEq(index.Key, val.Key) {
+				return nil
+			}
+		}
+
+	}
+
 	return colname.EnsureIndex(index)
 }
 
@@ -54,6 +68,12 @@ func (m *MgoOp) FindResult(collectionname string, query interface{}) *mgo.Query 
 	return colname.Find(query)
 }
 
+//查找Aggreate
+func (m *MgoOp) AggregatPipeResult(collectionname string, pipeline interface{}) *mgo.Pipe {
+	colname := m.mgodb.C(collectionname)
+	return colname.Pipe(pipeline)
+}
+
 //创建mongo数据库对象，可以操作collection
 func CreateMO(moo agentConf.MO) *MgoOp {
 	var surl string
@@ -71,4 +91,27 @@ func CreateMO(moo agentConf.MO) *MgoOp {
 
 	return &MgoOp{session.DB(moo.Dbname), session}
 
+}
+
+func stringEq(a, b []string) bool {
+
+	if a == nil && b == nil {
+		return true
+	}
+
+	if a == nil || b == nil {
+		return false
+	}
+
+	if len(a) != len(b) {
+		return false
+	}
+
+	for i := range a {
+		if a[i] != b[i] {
+			return false
+		}
+	}
+
+	return true
 }

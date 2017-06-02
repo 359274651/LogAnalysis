@@ -14,6 +14,7 @@ import (
 	"strconv"
 	//"strings"
 	//"path"
+	//"gopkg.in/mgo.v2/bson"
 	"time"
 )
 
@@ -61,9 +62,15 @@ func S2I(a string) int {
 func main() {
 	time.Time{}.String()
 	//time.January
-	layout := "02/January/2006:15:04:05"
-	times, _ := time.ParseInLocation(layout, "26/May/2017:12:05:07 +0800", time.Local)
+	layout := "02/Jan/2006:15:04:05 -0700"
+	times, _ := time.Parse(layout, "02/Jun/2017:13:50:37 +0800")
+	fmt.Println(times.String())
+	//time.Unix(0, time.Now().UnixNano()/1e6*1e6)
+	times = time.Unix(0, times.UnixNano()/1e6*1e6)
+	toDate := time.Date(2017, time.May, 29, 18, 8, 39, 0, time.UTC)
+
 	fmt.Println(times)
+	fmt.Println(toDate)
 	//watitime := "[26/May/2017:12:05:07 +0800]"
 	//strings.Split(watitime, "/")
 	//
@@ -145,3 +152,35 @@ func main() {
 //	}
 //
 //}
+
+/*
+const (
+    stdLongMonth      = "January"
+    stdMonth          = "Jan"
+    stdNumMonth       = "1"
+    stdZeroMonth      = "01"
+    stdLongWeekDay    = "Monday"
+    stdWeekDay        = "Mon"
+    stdDay            = "2"
+    stdUnderDay       = "_2"
+    stdZeroDay        = "02"
+    stdHour           = "15"
+    stdHour12         = "3"
+    stdZeroHour12     = "03"
+    stdMinute         = "4"
+    stdZeroMinute     = "04"
+    stdSecond         = "5"
+    stdZeroSecond     = "05"
+    stdLongYear       = "2006"
+    stdYear           = "06"
+    stdPM             = "PM"
+    stdpm             = "pm"
+    stdTZ             = "MST"
+    stdISO8601TZ      = "Z0700"  // prints Z for UTC
+    stdISO8601ColonTZ = "Z07:00" // prints Z for UTC
+    stdNumTZ          = "-0700"  // always numeric
+    stdNumShortTZ     = "-07"    // always numeric
+    stdNumColonTZ     = "-07:00" // always numeric
+)
+
+*/

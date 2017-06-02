@@ -9,16 +9,18 @@ import (
 )
 
 type Config struct {
-	Agentname string
-	NLog      NginxLog `toml:"nginxLog"`
-	AtsLog    AtsLog   `toml:"atsLog"`
-	MysqlConf Mysql    `toml:"mysql"`
-	MongoC    MO       `toml:"mongo"`
-	REG       REGX     `toml:"regexe"`
+	Agentname  string
+	Expirehour int64
+	NLog       NginxLog `toml:"nginxLog"`
+	AtsLog     AtsLog   `toml:"atsLog"`
+	MysqlConf  Mysql    `toml:"mysql"`
+	MongoC     MO       `toml:"mongo"`
+	REG        REGX     `toml:"regexe"`
 }
 
 type NginxLog struct {
 	Title             string
+	Index             []string
 	Separator         string
 	Filterconditions  string
 	NginxAcessLogPath string
@@ -29,6 +31,7 @@ type NginxLog struct {
 
 type AtsLog struct {
 	Title            string
+	Index            []string
 	Separator        string
 	Filterconditions string
 	AtsAcessLogPath  string

@@ -3,8 +3,6 @@ package Repository
 import (
 	//"log"
 
-	"github.com/influxdata/influxdb/client/v2"
-
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 	//"logAnalysis/CommonLibrary"
@@ -45,25 +43,24 @@ func InitDocumentKey(qk *logserver.QueryKey) *mgo.Query {
 //qk logserver.QueryKey
 
 //统计状态码  时间 now－1d  1m durations=refresh time
-func CountStatusArea(reqtime string) ([]client.Result, error) {
+func CountStatusArea(conditon *logserver.QueryData) (*mgo.Pipe, error) {
 	//var nodersl []logagent.NodeCollection
-	//mongodb := ConvertMoEntity()
-	//defer runglobal.PublicLock.Unlock()
-	//runglobal.PublicLock.Lock()
-	//mgdb := GetmongoDb(mongodb)
-	//
-	////defer DeferCloseconn(nginxlog)
-	//mgdb.SwitchDB(mongodb.Nodedb)
-	//resl := mgdb.FindResult("nodecollection", nil)
-	//err := resl.All(nodersl)
-	//CommonLibrary.CheckError(err)
-	//for _, nodeval := range nodersl {
-	//	nodeval.Nodename
-	//}
-	//return nginxlog.QueryData("SELECT count(\"port\") FROM \"%s\" WHERE  time > now() - %s GROUP BY \"status\" fill(0)", nginxlogcon.Tablename, reqtime)
-	//return nginxlog.QueryData("select cs as data,status as label from dg5telegraf.rp6h.countstatusarea where time >= now() - 10m")
-	return nil, nil
+	mongodb := ConvertMoEntity()
+	defer runglobal.PublicLock.Unlock()
+	runglobal.PublicLock.Lock()
+	mgdb := GetmongoDb(mongodb)
+
+	mgdb.SwitchDB(string(conditon.DB))
+	pipec, err := conditon.GenerateMqlPipe()
+	if err != nil {
+		return nil, err
+	}
+	body, err := json.Marshal(pipec)
+	fmt.Println(string(body))
+	resl := mgdb.AggregatPipeResult(conditon.Collection, pipec)
+	return resl, nil
 }
+
 func GetmongoDb(mongodb agentConf.MO) *mongo.MgoOp {
 	if runglobal.GlobalMongdb != nil {
 		log.Println("nill")
