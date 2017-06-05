@@ -11,6 +11,7 @@ import (
 	"logAnalysis/handle"
 	//"logAnalysis/handle/logserver"
 	"logAnalysis/handle/logserver/server"
+	"time"
 )
 
 func CountStatusArea(ctx *iris.Context) {
@@ -23,9 +24,13 @@ func CountStatusArea(ctx *iris.Context) {
 	ctx.Log(iris.DevMode, ""+ctx.RequestPath(true))
 	err := ctx.ReadJSON(&qd)
 	CommonLibrary.CheckHtmlError(err, ctx)
+	t := time.Now()
+	fmt.Println("start time :", t.String())
 	clresult, err := server.CountStatusArea(qd.ToQueryData())
 	result, _ := json.Marshal(clresult)
 	fmt.Println(string(result))
+	t = time.Now()
+	fmt.Println("end time :", t.String())
 	ctx.WriteString(string(result))
 }
 

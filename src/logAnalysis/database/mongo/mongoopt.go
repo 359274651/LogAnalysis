@@ -32,7 +32,6 @@ func (m *MgoOp) InsertResult(collectionname string, doc ...interface{}) error {
 
 //查找一群结果，并返回
 func (m *MgoOp) CreateIndex(collectionname string, index mgo.Index) error {
-	var match = false
 	colname := m.mgodb.C(collectionname)
 	i, err := colname.Indexes()
 	if err != nil {
